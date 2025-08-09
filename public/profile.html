@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hồ sơ cá nhân</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <header>
+    <div class="logo">🍲 <span>Nấu ăn cùng nhau</span></div>
+    <nav>
+        <a href="index.html">Trang chủ</a>
+        <a href="post.html">Đăng công thức</a>
+        <a href="profile.html">Trang cá nhân</a>
+        <span id="greeting" style="display: none;"></span>
+        <a id="loginLink" href="/login.html">Đăng nhập</a>
+        <a id="registerLink" href="/register.html">Đăng ký</a>
+        <button id="logoutBtn" style="display: none;">Đăng xuất</button>
+    </nav>
+  </header>
+  <div class="profile-container">
+    <h1>Hồ sơ của tôi</h1>
+    <div class="profile-info">
+      <img id="avatar" src="" alt="Avatar" />
+      <p><strong>Bio:</strong> <span id="bio"></span></p>
+      <button id="edit-btn">Chỉnh sửa hồ sơ</button>
+
+      <div id="edit-form" class="hidden">
+        <input type="text" id="avatar-input" placeholder="Link ảnh đại diện">
+        <textarea id="bio-input" placeholder="Giới thiệu bản thân"></textarea>
+        <button id="save-btn">Lưu</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="recipes-section">
+      <h2>Công thức của tôi</h2>
+      <ul id="my-recipes" class="recipe-list"></ul>
+
+      <h2>Đã thích</h2>
+      <ul id="liked-recipes" class="recipe-list"></ul>
+    </div>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trang chủ | Nấu ăn cùng nhau</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+  <div class="logo">🍲 <span>Nấu ăn cùng nhau</span></div>
+  <nav>
+    <a href="index.html">Trang chủ</a>
+    <a href="post.html">Đăng công thức</a>
+    <a href="profile.html">Trang cá nhân</a>
+    <span id="greeting" style="display: none;"></span>
+    <a id="loginLink" href="/login.html">Đăng nhập</a>
+    <a id="registerLink" href="/register.html">Đăng ký</a>
+    <button id="logoutBtn" style="display: none;">Đăng xuất</button>
+  </nav>
+  </header>
+
+  <!-- Main content -->
+  <main>
+    <h2>📝 Bài viết mới nhất</h2>
+    <div class="post-list" id="postList">
+      <!-- Bài viết sẽ được render ở đây bằng JS -->
+    </div>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 - Nấu ăn cùng nhau. All rights reserved.
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
