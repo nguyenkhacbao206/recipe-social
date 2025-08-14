@@ -15,7 +15,7 @@ const likedRecipesList = document.getElementById("liked-recipes");
 
 async function loadProfile() {
   try {
-    const res = await fetch("https://recipe-social-production-d221.up.railway.app/api/profile/me", {
+    const res = await fetch("https://recipe-social-production.up.railway.app/api/profile/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -44,7 +44,7 @@ async function loadProfile() {
 
 async function loadMyPosts() {
   try {
-    const res = await fetch("https://recipe-social-production-d221.up.railway.app/api/posts/me", {
+    const res = await fetch("https://recipe-social-production.up.railway.app/api/posts/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -90,7 +90,7 @@ document.getElementById("edit-btn").addEventListener("click", () => {
 // Gửi request cập nhật
 document.getElementById("save-btn").addEventListener("click", async () => {
   try {
-    const res = await fetch("https://recipe-social-production-d221.up.railway.app/api/profile/me", {
+    const res = await fetch("https://recipe-social-production.up.railway.app/api/profile/me", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

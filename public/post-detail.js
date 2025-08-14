@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!postId) return postDetail.innerText = "Không tìm thấy bài viết.";
 
   try {
-    const res = await fetch(`https://recipe-social-production-d221.up.railway.app/api/posts`);
+    const res = await fetch(`https://recipe-social-production.up.railway.app/api/posts`);
     const posts = await res.json();
     const post = posts.find(p => p._id === postId);
 
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!token) return alert("Bạn cần đăng nhập để bình luận");
 
     try {
-      const res = await fetch(`https://recipe-social-production-d221.up.railway.app/api/posts/${postId}/comment`, {
+      const res = await fetch(`https://recipe-social-production.up.railway.app/api/posts/${postId}/comment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

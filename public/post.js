@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      const res = await fetch("https://recipe-social-production-d221.up.railway.app/api/posts", {
+      const res = await fetch("https://recipe-social-production.up.railway.app/api/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

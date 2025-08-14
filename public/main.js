@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const postList = document.getElementById('postList');
 
   try {
-    const res = await fetch('https://recipe-social-production-d221.up.railway.app/api/posts/home');
+    const res = await fetch('https://recipe-social-production.up.railway.app/api/posts/home');
     const posts = await res.json();
 
     if (!Array.isArray(posts) || posts.length === 0) {
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Lấy số like từ API riêng
       let likeCount = 0;
       try {
-        const likeRes = await fetch(`https://recipe-social-production-d221.up.railway.app/api/likes/count/${post._id}`);
+        const likeRes = await fetch(`https://recipe-social-production.up.railway.app/api/likes/count/${post._id}`);
         const likeData = await likeRes.json();
         likeCount = likeData.likes || 0;
       } catch (err) {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Lấy số bình luận
       let commentCount = 0;
       try {
-        const commentRes = await fetch(`https://recipe-social-production-d221.up.railway.app/api/comments/${post._id}`);
+        const commentRes = await fetch(`https://recipe-social-production.up.railway.app/api/comments/${post._id}`);
         const comments = await commentRes.json();
         commentCount = Array.isArray(comments) ? comments.length : 0;
       } catch (err) {
@@ -68,7 +68,7 @@ document.addEventListener("click", async (e) => {
 
   async function loadComments(postId) {
   try {
-    const res = await fetch(`https://recipe-social-production-d221.up.railway.app/api/comments/${postId}`);
+    const res = await fetch(`https://recipe-social-production.up.railway.app/api/comments/${postId}`);
     if (!res.ok) throw new Error("Không lấy được bình luận");
 
     const comments = await res.json();
@@ -104,7 +104,7 @@ document.addEventListener("click", async (e) => {
 
     try {
       // Gọi API toggle like
-      await fetch(`https://recipe-social-production-d221.up.railway.app/api/likes/toggle`, {
+      await fetch(`https://recipe-social-production.up.railway.app/api/likes/toggle`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -114,7 +114,7 @@ document.addEventListener("click", async (e) => {
       });
 
       // Lấy lại số like mới nhất
-      const likeRes = await fetch(`https://recipe-social-production-d221.up.railway.app/api/likes/count/${postId}`);
+      const likeRes = await fetch(`https://recipe-social-production.up.railway.app/api/likes/count/${postId}`);
       const likeData = await likeRes.json();
       btn.querySelector(".like-count").textContent = likeData.likes;
 
@@ -161,7 +161,7 @@ if (e.target.classList.contains("submit-comment-btn")) {
   }
 
   // Gửi bình luận lên API
-  fetch("https://recipe-social-production-d221.up.railway.app/api/comments", {
+  fetch("https://recipe-social-production.up.railway.app/api/comments", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${token}`,
