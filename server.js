@@ -15,9 +15,11 @@ dotenv.config();
 
 const app = express();
 
-// CORS cho phép mọi domain (nếu muốn chỉ giới hạn cho frontend của bạn thì sửa lại phần origin)
+// ===== Cấu hình CORS =====
+// Nếu muốn cho tất cả truy cập: origin: '*'
+// Nếu chỉ cho frontend của bạn: thay URL dưới đây bằng domain thật
 app.use(cors({
-  origin: '*', // Cho phép tất cả
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -25,15 +27,18 @@ app.use(cors({
 // Middleware đọc JSON
 app.use(express.json());
 
-// Kết nối MongoDB
+// ===== Kết nối MongoDB =====
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
   .then(() => console.log('✅ Kết nối MongoDB thành công'))
-  .catch((err) => console.error('❌ Lỗi kết nối MongoDB:', err));
+  .catch((err) => {
+    console.error('❌ Lỗi kết nối MongoDB:', err.message);
+    process.exit(1); // Dừng server nếu không kết nối được DB
+  });
 
-// Phục vụ file tĩnh
+// ===== Phục vụ file tĩnh (nếu cần) =====
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Trang chủ
@@ -41,14 +46,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Routes API
+// ===== Các route API =====
 app.use('/api/profile', profileRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
 
-// Khởi động server
+// ===== Khởi động server =====
+// Railway sẽ tự cấp PORT, không cần để cố định trong .env
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server đang chạy tại port ${PORT}`);
