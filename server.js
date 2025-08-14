@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
-const cors = require('cors'); // Thêm CORS
+const cors = require('cors');
 
 // Import routes
 const profileRoutes = require('./routes/profileRoutes');
@@ -15,17 +15,14 @@ dotenv.config();
 
 const app = express();
 
-// Cấu hình CORS (cho phép cả local và Railway)
+// CORS cho phép mọi domain (nếu muốn chỉ giới hạn cho frontend của bạn thì sửa lại phần origin)
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://recipe-social-production-d221.up.railway.app'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  origin: '*', // Cho phép tất cả
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Middleware đọc JSON từ client
+// Middleware đọc JSON
 app.use(express.json());
 
 // Kết nối MongoDB
@@ -33,10 +30,10 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('✅ Kết nối MongoDB thành công'))
-.catch((err) => console.error('❌ Lỗi kết nối MongoDB:', err));
+  .then(() => console.log('✅ Kết nối MongoDB thành công'))
+  .catch((err) => console.error('❌ Lỗi kết nối MongoDB:', err));
 
-// Phục vụ file tĩnh (HTML, CSS, JS)
+// Phục vụ file tĩnh
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Trang chủ
@@ -44,7 +41,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Các route API
+// Routes API
 app.use('/api/profile', profileRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
@@ -54,5 +51,5 @@ app.use('/api/likes', likeRoutes);
 // Khởi động server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server đang chạy tại http://localhost:${PORT}`);
+  console.log(`🚀 Server đang chạy tại port ${PORT}`);
 });
