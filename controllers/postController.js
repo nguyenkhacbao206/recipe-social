@@ -33,10 +33,10 @@ exports.createPost = async (req, res) => {
       authorName: user.fullName 
     });
 
-    console.log('✅ Bài viết đã được lưu:', newPost);
+    console.log(' Bài viết đã được lưu:', newPost);
     res.status(201).json(newPost);
   } catch (error) {
-    console.error('❌ Lỗi khi tạo bài viết:', error);
+    console.error(' Lỗi khi tạo bài viết:', error);
     res.status(500).json({ message: 'Lỗi server khi tạo bài viết', error });
   }
 };
@@ -76,46 +76,46 @@ exports.getHomePosts = async (req, res) => {
   }
 };
 
-//  Thêm bình luận vào bài viết
-exports.addComment = async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const { comment } = req.body;
+// //  Thêm bình luận vào bài viết
+// exports.addComment = async (req, res) => {
+//   try {
+//     const postId = req.params.id;
+//     const { comment } = req.body;
 
-    const post = await Post.findById(postId);
-    if (!post) return res.status(404).json({ message: 'Không tìm thấy bài viết' });
+//     const post = await Post.findById(postId);
+//     if (!post) return res.status(404).json({ message: 'Không tìm thấy bài viết' });
 
-    post.comments.push({
-      content: comment,
-      user: req.user._id,
-    });
+//     post.comments.push({
+//       content: comment,
+//       user: req.user._id,
+//     });
 
-    await post.save();
-    res.status(200).json(post);
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi khi bình luận', error });
-  }
-};
+//     await post.save();
+//     res.status(200).json(post);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Lỗi khi bình luận', error });
+//   }
+// };
 
-//  Like / Unlike bài viết
-exports.toggleLike = async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const post = await Post.findById(postId);
-    if (!post) return res.status(404).json({ message: 'Không tìm thấy bài viết' });
+// //  Like / Unlike bài viết
+// exports.toggleLike = async (req, res) => {
+//   try {
+//     const postId = req.params.id;
+//     const post = await Post.findById(postId);
+//     if (!post) return res.status(404).json({ message: 'Không tìm thấy bài viết' });
 
-    const userId = req.user._id.toString();
-    const index = post.likes.findIndex(id => id.toString() === userId);
+//     const userId = req.user._id.toString();
+//     const index = post.likes.findIndex(id => id.toString() === userId);
 
-    if (index > -1) {
-      post.likes.splice(index, 1); 
-    } else {
-      post.likes.push(req.user._id); 
-    }
+//     if (index > -1) {
+//       post.likes.splice(index, 1); 
+//     } else {
+//       post.likes.push(req.user._id); 
+//     }
 
-    await post.save();
-    res.status(200).json({ likes: post.likes.length });
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi khi like/unlike', error });
-  }
-};
+//     await post.save();
+//     res.status(200).json({ likes: post.likes.length });
+//   } catch (error) {
+//     res.status(500).json({ message: 'Lỗi khi like/unlike', error });
+//   }
+// };

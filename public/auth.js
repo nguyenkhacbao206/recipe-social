@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch("http://localhost:3000/api/user", {
+    const res = await fetch("https://recipe-social-production-d221.up.railway.app/api/user", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
