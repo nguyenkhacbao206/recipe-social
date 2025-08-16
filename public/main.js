@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error(`Lỗi lấy bình luận cho post ${post._id}:`, err);
       };
 
-      postDiv.innerHTML = `
+     postDiv.innerHTML = `
         <img src="${imageUrl}" alt="Ảnh món ăn" class="post-image">
         <h3>${post.title}</h3>
         <p><strong>Tác giả:</strong> ${authorName}</p>
@@ -48,12 +48,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         <p><strong>Cách làm:</strong> ${post.instructions || "Chưa cập nhật"}</p>
 
         <div class="post-actions">
-          <button class="like-btn" data-id="${post._id}">❤️ <span class="like-count">${likeCount}</span></button>
-        - <button class="comment-btn" data-id="${post._id}">💬 </button>
-        + <button class="comment-btn" data-id="${post._id}">💬 <span class="comment-count">${commentCount}</span></button>
+          <button class="like-btn" data-id="${post._id}">
+            ❤️ <span class="like-count">${likeCount}</span>
+          </button>
+          <button class="comment-btn" data-id="${post._id}">
+            💬 <span class="comment-count">${commentCount}</span>
+          </button>
           <button class="detail-btn" data-id="${post._id}">Xem chi tiết</button>
         </div>
+
+        <!-- Form bình luận (ẩn mặc định) -->
+        <div id="comment-form-${post._id}" class="comment-form hidden">
+          <textarea class="comment-input" placeholder="Viết bình luận..."></textarea>
+          <button class="submit-comment-btn" data-id="${post._id}">Gửi</button>
+          <ul id="comment-list-${post._id}" class="comment-list"></ul>
+        </div>
       `;
+
 
       postList.appendChild(postDiv);
     }
