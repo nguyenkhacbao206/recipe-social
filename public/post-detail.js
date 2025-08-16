@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // ===== Hàm load chi tiết bài viết =====
+  // Hàm load chi tiết bài viết
   async function loadPost() {
     try {
       const res = await fetch(`https://recipe-social-production.up.railway.app/api/posts/${postId}`);
@@ -29,14 +29,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const post = await res.json();
 
-      // Render thông tin bài viết
       postTitle.textContent = post.title;
       postMeta.textContent = post.user?.fullName || "Ẩn danh";
       postImage.src = post.image || "https://via.placeholder.com/400x250?text=No+Image";
       postDescription.textContent = post.description || "";
 
-      // Load like và comments
-      await loadLikes();
+      // Lấy số like
+      const likeRes = await fetch(`https://recipe-social-production.up.railway.app/api/likes/count/${postId}`);
+      const likeData = await likeRes.json();
+      likeCountEl.textContent = likeData.likes || 0;
+
+      // Load bình luận
       await loadComments();
     } catch (err) {
       console.error(err);
@@ -44,18 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // ===== Hàm load số like =====
-  async function loadLikes() {
-    try {
-      const res = await fetch(`https://recipe-social-production.up.railway.app/api/likes/count/${postId}`);
-      const data = await res.json();
-      likeCountEl.textContent = data.likes || 0;
-    } catch (err) {
-      console.error("Lỗi khi load likes:", err);
-    }
-  }
-
-  // ===== Hàm load bình luận =====
+  // Hàm load bình luận
   async function loadComments() {
     try {
       const res = await fetch(`https://recipe-social-production.up.railway.app/api/comments/${postId}`);
@@ -74,13 +66,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
       }
 
+      // Cập nhật số bình luận
       commentCountEl.textContent = comments.length;
     } catch (err) {
-      console.error("Lỗi khi load comments:", err);
+      console.error(err);
     }
   }
 
-  // ===== Sự kiện like =====
+  // Sự kiện like
   likeBtn.addEventListener("click", async () => {
     const token = localStorage.getItem("token");
     if (!token) return alert("Vui lòng đăng nhập để like.");
@@ -95,18 +88,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         body: JSON.stringify({ postId })
       });
 
-      await loadLikes(); // cập nhật lại số like
+      // Load lại số like mới
+      const likeRes = await fetch(`https://recipe-social-production.up.railway.app/api/likes/count/${postId}`);
+      const likeData = await likeRes.json();
+      likeCountEl.textContent = likeData.likes;
     } catch (err) {
       console.error("Lỗi khi like:", err);
     }
   });
 
-  // ===== Toggle form bình luận =====
+  // Sự kiện toggle form bình luận
   commentBtn.addEventListener("click", () => {
     commentForm.classList.toggle("hidden");
+    if (!commentForm.classList.contains("hidden")) {
+      loadComments();
+    }
   });
 
-  // ===== Gửi bình luận =====
+  // Sự kiện gửi bình luận
   commentForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -129,17 +128,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!res.ok) throw new Error("Gửi bình luận thất bại");
 
       commentInput.value = "";
-      await loadComments(); // cập nhật lại danh sách & số bình luận
+      await loadComments(); // reload lại danh sách và số lượng
     } catch (err) {
       console.error(err);
     }
   });
 
-  // ===== Khi mở trang thì load dữ liệu ngay =====
+  // Lần đầu load
   loadPost();
-
-  setInterval(() => {
-    loadLikes();
-    loadComments();
-  }, 5000);
 });
