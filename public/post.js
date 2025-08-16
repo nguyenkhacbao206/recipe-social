@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const title = document.getElementById("title").value.trim();
     const description = document.getElementById("description").value.trim();
-    const image = document.getElementById("image").value.trim();
+    const imageFile = document.getElementById("image").files[0]; // lấy file ảnh
 
     if (!title || !description) {
       alert("Vui lòng nhập đầy đủ tiêu đề và mô tả.");
@@ -20,19 +20,22 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+    // Dùng FormData để gửi file + text
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("category", "Ẩm thực");
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
     try {
       const res = await fetch("https://recipe-social-production.up.railway.app/api/posts", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}` // KHÔNG set Content-Type, fetch sẽ tự thêm khi gửi FormData
         },
-        body: JSON.stringify({
-          title,
-          description,
-          image,
-          category: "Ẩm thực" // bạn có thể cho người dùng chọn nếu muốn
-        })
+        body: formData
       });
 
       if (!res.ok) {
