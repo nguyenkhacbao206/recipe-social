@@ -49,7 +49,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         <div class="post-actions">
           <button class="like-btn" data-id="${post._id}">❤️ <span class="like-count">${likeCount}</span></button>
-          <button class="comment-btn" data-id="${post._id}">💬 </button>
+        - <button class="comment-btn" data-id="${post._id}">💬 </button>
+        + <button class="comment-btn" data-id="${post._id}">💬 <span class="comment-count">${commentCount}</span></button>
           <button class="detail-btn" data-id="${post._id}">Xem chi tiết</button>
         </div>
       `;

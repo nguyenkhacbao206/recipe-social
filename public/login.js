@@ -23,10 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // ✅ QUAN TRỌNG: Lưu token để auth.js sử dụng
+      //  Lưu token để auth.js sử dụng
       localStorage.setItem('token', data.token);
 
-      // ✅ Lưu thông tin tên
+      //  Lưu thông tin tên
       localStorage.setItem('fullName', data.fullName);
       localStorage.setItem('username', username);
 

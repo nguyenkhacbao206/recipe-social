@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container">
-    <article class="post">
+    <article class="post" id="postDetail">
       <h1 id="post-title"></h1>
       <p class="author-date" id="post-meta"></p>
       <img id="post-image" alt="Ảnh bài viết"/>
@@ -16,12 +16,13 @@
 
       <div class="interact">
         <button id="like-btn">❤️ <span id="like-count">0</span></button>
+        <span id="comment-count">(0 bình luận)</span>
       </div>
 
       <section class="comments">
         <h3>Bình luận</h3>
         <form id="comment-form">
-          <input type="text" id="comment-content" placeholder="Nhập bình luận..." required />
+          <input type="text" id="comment-input" placeholder="Nhập bình luận..." required />
           <button type="submit">Gửi</button>
         </form>
         <ul id="comment-list"></ul>
