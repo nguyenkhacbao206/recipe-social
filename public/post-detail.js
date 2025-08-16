@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const likeBtn = document.getElementById("like-btn");
   const likeCountEl = document.getElementById("like-count");
+  const commentBtn = document.getElementById("comment-btn");
   const commentCountEl = document.getElementById("comment-count");
 
   const commentForm = document.getElementById("comment-form");
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const likeData = await likeRes.json();
       likeCountEl.textContent = likeData.likes || 0;
 
-      // Lấy số bình luận
+      // Load bình luận
       await loadComments();
     } catch (err) {
       console.error(err);
@@ -60,14 +61,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       } else {
         comments.forEach(c => {
           const li = document.createElement("li");
-          li.textContent = `${c.user?.username || "Ẩn danh"}: ${c.content}`;
+          li.innerHTML = `<strong>${c.user?.username || "Ẩn danh"}:</strong> ${c.content}`;
           commentList.appendChild(li);
         });
       }
 
       // Cập nhật số bình luận
-      commentCountEl.textContent = `(${comments.length} bình luận)`;
-
+      commentCountEl.textContent = comments.length;
     } catch (err) {
       console.error(err);
     }
@@ -94,6 +94,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       likeCountEl.textContent = likeData.likes;
     } catch (err) {
       console.error("Lỗi khi like:", err);
+    }
+  });
+
+  // Sự kiện toggle form bình luận
+  commentBtn.addEventListener("click", () => {
+    commentForm.classList.toggle("hidden");
+    if (!commentForm.classList.contains("hidden")) {
+      loadComments();
     }
   });
 

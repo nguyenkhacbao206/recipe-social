@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi tiết bài viết</title>
-  <link rel="stylesheet" href="post-detail.css" />
+  <link rel="stylesheet" href="post-detail.css">
 </head>
 <body>
-  <div class="container">
-    <article class="post" id="postDetail">
-      <h1 id="post-title"></h1>
-      <p class="author-date" id="post-meta"></p>
-      <img id="post-image" alt="Ảnh bài viết"/>
+  <header>
+    <h1>Chi tiết Bài viết</h1>
+  </header>
+
+  <main id="postDetail">
+    <article class="post-card">
+      <img id="post-image" src="" alt="Ảnh bài viết" class="post-image">
+      <h2 id="post-title"></h2>
+      <p id="post-meta" class="meta"></p>
       <p id="post-description"></p>
-
-      <div class="interact">
-        <button id="like-btn">❤️ <span id="like-count">0</span></button>
-        <span id="comment-count">(0 bình luận)</span>
-      </div>
-
-      <section class="comments">
-        <h3>Bình luận</h3>
-        <form id="comment-form">
-          <input type="text" id="comment-input" placeholder="Nhập bình luận..." required />
-          <button type="submit">Gửi</button>
-        </form>
-        <ul id="comment-list"></ul>
-      </section>
     </article>
-  </div>
 
-  <script src="/js/post-detail.js"></script>
+    <!-- Like và comment -->
+    <section class="interactions">
+      <button id="like-btn">❤️ <span id="like-count">0</span></button>
+      <button id="comment-btn">💬 <span id="comment-count">0</span></button>
+    </section>
+
+    <section class="comments">
+      <h3>Bình luận</h3>
+      <ul id="comment-list"></ul>
+
+      <form id="comment-form" class="hidden">
+        <textarea id="comment-input" placeholder="Viết bình luận..." required></textarea>
+        <button type="submit">Gửi</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="post-detail.js"></script>
 </body>
 </html>
