@@ -21,7 +21,7 @@ const protect = async (req, res, next) => {
 
     req.user = user; // Gán cả đối tượng user vào req.user
 
-    next();
+    next(); 
   } catch (error) {
     return res.status(401).json({ message: 'Token hết hạn hoặc không hợp lệ' });
   }

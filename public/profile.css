@@ -1,99 +1,219 @@
-
-body {
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
+/* ===== RESET ===== */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #fff8f0;
+  color: #333;
+}
+
+/* ===== HEADER ===== */
 header {
-  background-color: #ff7f50;
+  background: linear-gradient(135deg, #ff7b54, #ffb26b);
   color: white;
-  padding: 1rem;
+  padding: 15px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.logo span {
+header .logo {
+  font-size: 1.5rem;
   font-weight: bold;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-nav a {
-  margin-left: 1rem;
+nav a, nav button, nav span {
   color: white;
   text-decoration: none;
+  margin-left: 15px;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav button {
+  background: #e76845;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: #d95a38;
+}
+
+/* ===== BANNER ===== */
+.profile-container::before {
+  content: "👩‍🍳 Chia sẻ đam mê - Gắn kết cộng đồng yêu bếp 👨‍🍳";
+  display: block;
+  text-align: center;
+  background: #ffd89b;
+  color: #6b3e26;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-bottom: 3px dashed #ffb26b;
+}
+
+/* ===== PROFILE CONTAINER ===== */
 .profile-container {
-  max-width: 700px;
+  max-width: 900px;
   margin: 40px auto;
-  background: #fff;
+  background: white;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.profile-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ff7b54;
 }
 
 .profile-info {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .profile-info img {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ddd;
+  border-radius: 50%;
+  border: 4px solid #ffb26b;
+  margin-bottom: 10px;
 }
 
 .profile-info p {
-  margin-top: 10px;
-  font-size: 16px;
+  margin-bottom: 10px;
+  font-size: 1rem;
 }
 
+.profile-info button {
+  background: #ff7b54;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.profile-info button:hover {
+  background: #e76845;
+}
+
+/* ===== EDIT FORM ===== */
 #edit-form {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 #edit-form input,
 #edit-form textarea {
-  width: 90%;
-  margin: 8px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
-button {
-  padding: 10px 20px;
-  background: #28a745;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+#edit-form button {
+  width: 100%;
 }
 
-button:hover {
-  background: #218838;
-}
-
-.hidden {
-  display: none;
-}
-
+/* ===== RECIPE LIST ===== */
 .recipes-section {
-  margin-top: 30px;
+  margin-top: 25px;
+}
+
+.recipes-section h2 {
+  margin: 20px 0 10px;
+  color: #ff7b54;
 }
 
 .recipe-list {
   list-style: none;
-  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-.recipe-list li {
-  background: #f0f0f0;
-  margin: 6px 0;
+.recipe-item {
+  background: #fff5ec;
   padding: 10px;
+  border-radius: 10px;
+  flex: 1 1 calc(33.33% - 15px);
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.recipe-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.recipe-item img {
+  width: 100%;
+  height: auto;
   border-radius: 8px;
+}
+
+.recipe-item p {
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .recipe-item {
+    flex: 1 1 calc(50% - 15px);
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .profile-container {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav a, nav button {
+    margin: 5px;
+    font-size: 0.9rem;
+  }
+
+  .recipe-item {
+    flex: 1 1 100%;
+  }
 }
